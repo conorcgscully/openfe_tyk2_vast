@@ -1,12 +1,7 @@
-FROM mambaorg/micromamba:1.5.8
+FROM --platform=linux/amd64 mambaorg/micromamba:2.3.0
 
-USER root
-RUN apt-get update && apt-get install -y bash && rm -rf /var/lib/apt/lists/*
-
-USER $MAMBA_USER
-RUN micromamba install -y -c conda-forge \
+RUN micromamba create -y -n myenv -c conda-forge -c omnia -c defaults \
     python=3.10 \
-    requests \
     openmm \
     openfe \
     openff-toolkit \
@@ -16,8 +11,10 @@ RUN micromamba install -y -c conda-forge \
     pip && \
     micromamba clean --all --yes
 
-WORKDIR /workspace
-COPY --chown=$MAMBA_USER:$MAMBA_USER . /workspace
+# Activate the environment by default
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+ENV MAMBA_DOCKERFILE_ACTIVATE=1
 
-# Activate the base environment and run bash
-CMD ["/usr/local/bin/_entrypoint.sh", "bash"]
+WORKDIR /workspace
+COPY . /workspace
+CMD ["bash"]
