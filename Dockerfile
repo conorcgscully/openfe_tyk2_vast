@@ -2,6 +2,7 @@ FROM condaforge/miniforge3
 
 RUN conda install -y -c conda-forge \
     python=3.10 \
+    requests \
     openmm \
     openfe \
     openff-toolkit \
