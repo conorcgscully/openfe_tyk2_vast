@@ -1,0 +1,12 @@
+name: openfe_tyk2_vast
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - openmm
+  - openfe
+  - openff-toolkit
+  - rdkit
+  - dask
+  - distributed
+  - pip
