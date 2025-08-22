@@ -18,4 +18,10 @@ ENV MAMBA_DOCKERFILE_ACTIVATE=1
 
 WORKDIR /workspace
 COPY . /workspace
+
+RUN chown -R mambauser:mambauser /workspace
+
+# Switch to mambauser (UID 1000)
+USER mambauser
+
 CMD ["bash"]
