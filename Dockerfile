@@ -2,6 +2,7 @@ FROM --platform=linux/amd64 mambaorg/micromamba:2.3.0
 
 RUN micromamba create -y -n myenv -c conda-forge -c omnia -c defaults \
     python=3.10 \
+    requests \
     openmm \
     openfe \
     openff-toolkit \
