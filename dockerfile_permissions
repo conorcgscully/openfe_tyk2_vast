@@ -1,0 +1,50 @@
+FROM ubuntu:22.04
+
+# Create a non-root user that matches common UID/GID ranges used by container platforms
+RUN groupadd -r appgroup && useradd -r -g appgroup -u 1000 appuser
+
+# Create directories with proper ownership
+RUN mkdir -p /app/data /app/logs /tmp/app && \
+    chown -R appuser:appgroup /app && \
+    chmod -R 755 /app && \
+    chown appuser:appgroup /tmp/app && \
+    chmod 755 /tmp/app
+
+# Set working directory
+WORKDIR /app
+
+# Copy a simple test script
+COPY --chown=appuser:appgroup <<EOF /app/test_write.sh
+#!/bin/bash
+echo "Testing file write permissions..."
+
+# Test writing to different locations
+locations=("/app/data" "/app/logs" "/tmp/app" "/tmp")
+
+for location in "\${locations[@]}"; do
+    echo "Testing write to \$location"
+    if echo "test content \$(date)" > "\$location/test_\$(date +%s).txt"; then
+        echo "✓ Successfully wrote to \$location"
+        ls -la "\$location/test_"* 2>/dev/null | tail -1
+    else
+        echo "✗ Failed to write to \$location"
+    fi
+    echo "---"
+done
+
+# Show current user and permissions
+echo "Current user: \$(whoami)"
+echo "Current UID: \$(id -u)"
+echo "Current GID: \$(id -g)"
+echo "App directory permissions:"
+ls -la /app/
+EOF
+
+# Make script executable
+RUN chmod +x /app/test_write.sh
+
+# Switch to non-root user
+USER appuser
+
+# Default command
+CMD ["/app/test_write.sh"]
