@@ -8,7 +8,7 @@ ENV MAMBA_DOCKERFILE_ACTIVATE=1
 # USER root
 
 # Create a non-root user that matches common UID/GID ranges used by container platforms
-RUN groupadd -r appgroup && useradd -r -g appgroup -u 1000 appuser
+# RUN groupadd -r appgroup && useradd -r -g appgroup -u 1000 appuser
 
 # Create directories with proper ownership
 RUN mkdir -p /workspace && \
