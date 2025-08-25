@@ -12,7 +12,7 @@ RUN groupadd -r appgroup && useradd -r -g appgroup -u 1000 appuser
 
 # Create directories with proper ownership
 RUN mkdir -p /workspace && \
-    chown -R appuser:appgroup /workspace && \
+    chown -R $MAMBA_USER:$MAMBA_USER /workspace && \
     chmod -R 755 /workspace
 
 
@@ -38,6 +38,6 @@ WORKDIR /workspace
 COPY . /workspace
 
 # Drop privileges so writes happen as mambauser
-USER appuser
+USER $MAMBA_USER
 
 CMD ["bash"]
