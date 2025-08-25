@@ -5,15 +5,15 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 ENV MAMBA_DOCKERFILE_ACTIVATE=1
 
 # # Ensure we’re root for installs and FS setup
-# USER root
+USER root
 
 # Create a non-root user that matches common UID/GID ranges used by container platforms
 # RUN groupadd -r appgroup && useradd -r -g appgroup -u 1000 appuser
 
 # Create directories with proper ownership
-# RUN mkdir -p /workspace && \
-#     chown -R $MAMBA_USER:$MAMBA_USER /workspace && \
-#     chmod -R 755 /workspace
+RUN mkdir -p /workspace && \
+    chown -R $MAMBA_USER:$MAMBA_USER /workspace && \
+    chmod -R 755 /workspace
 
 
 # Create your env
