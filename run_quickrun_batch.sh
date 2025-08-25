@@ -28,16 +28,22 @@ for json_file in "$JSON_DIR"/*.json; do
         oname="${filename%.json}"
         
         echo "[$counter/$total_files] Processing: $filename"
-        echo "Running: openfe quickrun $json_file -o ${oname}_result.json" 
         
-        # Run openfe quickrun on the current file
-        openfe quickrun "$json_file" -o "${oname}_result.json" -d "$oname"
-        exit_code=$?
-        
-        if [ $exit_code -eq 0 ]; then
-            echo "✓ Completed successfully: $filename"
+        # Check if output file already exists
+        if [ -f "${oname}_result.json" ]; then
+            echo "⏭ Skipping: ${oname}_result.json already exists"
         else
-            echo "✗ Failed with exit code $exit_code: $filename"
+            echo "Running: openfe quickrun $json_file -o ${oname}_result.json" 
+            
+            # Run openfe quickrun on the current file
+            openfe quickrun "$json_file" -o "${oname}_result.json" -d "$oname"
+            exit_code=$?
+            
+            if [ $exit_code -eq 0 ]; then
+                echo "✓ Completed successfully: $filename"
+            else
+                echo "✗ Failed with exit code $exit_code: $filename"
+            fi
         fi
         
         echo "----------------------------------------"

@@ -30,3 +30,5 @@ pip install --upgrade "jax[cuda12_local]" -f https://storage.googleapis.com/jax-
 openfe quickrun tyk2_json/lig_ejm_31_lig_ejm_47_solvent.json -o /tmp/test.json -d /tmp/wd
 openfe quickrun tyk2_json/lig_ejm_31_lig_ejm_47_complex.json -o /tmp/test_complex.json -d /tmp/wd
 openfe quickrun tyk2_json/lig_ejm_31_lig_ejm_47_solvent.json -o test.json -d /tmp/wd
+
+# ssh -p 40776 root@207.167.211.138 -L 8080:localhost:8080
