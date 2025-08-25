@@ -20,12 +20,12 @@ RUN mkdir -p /workspace && \
 RUN micromamba create -y -n fepenv -c conda-forge \
     python=3.10 \
     requests \
-    # openmm \
-    # openfe \
-    # openff-toolkit \
-    # rdkit \
-    # dask \
-    # distributed \
+    openmm \
+    openfe \
+    openff-toolkit \
+    rdkit \
+    dask \
+    distributed \
     pip && \
     micromamba clean --all --yes
 
