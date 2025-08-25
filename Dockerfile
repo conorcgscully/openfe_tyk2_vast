@@ -17,7 +17,7 @@ RUN mkdir -p /workspace && \
 
 
 # Create your env
-RUN micromamba create -y -n myenv -c conda-forge -c omnia -c defaults \
+RUN micromamba create -y -n fepenv -c conda-forge \
     python=3.10 \
     requests \
     openmm \
@@ -28,6 +28,9 @@ RUN micromamba create -y -n myenv -c conda-forge -c omnia -c defaults \
     distributed \
     pip && \
     micromamba clean --all --yes
+
+# Set the environment to be activated by default
+ENV MAMBA_DEFAULT_ENV=fepenv
 
 WORKDIR /workspace
 
