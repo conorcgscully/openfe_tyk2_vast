@@ -5,10 +5,18 @@
 docker build -t yourdocker/openfe-dask:latest .
 docker push yourdocker/openfe-dask:latest
 
+
+
+
 git clone https://github.com/conorcgscully/openfe_tyk2_vast.git
 cd openfe_tyk2_vast
 
 docker build -t openfe_tyk2_image:latest .
+
+###### debugging docker write permission issues
+docker build -f dockerfile_permissions -t write-test .
+docker run --rm write-test
+######
 
 docker run --gpus all -v "$(pwd)":/workspace -w /workspace -it openfe_tyk2_image:latest bash
 docker run -v "$(pwd)":/workspace -w /workspace -it openfe_tyk2_image:latest bash
