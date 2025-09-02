@@ -1,8 +1,6 @@
 # Ligand-Only REST2 Conformational Sampling Recipe
 
 
-# Install via conda
-
 
 import numpy as np
 from openff.toolkit.topology import Molecule
